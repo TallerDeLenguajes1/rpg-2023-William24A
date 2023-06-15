@@ -5,7 +5,7 @@ public class Personaje{
     private string nombre;
     private string apodo;
     private DateTime fechanacimiento;
-    private int valocidad;
+    private int velocidad;
     private int destreza;
     private int fuerza;
     private int nivel;
@@ -18,7 +18,7 @@ public class Personaje{
         this.Nombre = nombre;
         this.Apodo = apodo;
         this.Fechanacimiento = fechanacimiento;
-        this.Valocidad = valocidad;
+        this.Velocidad = velocidad;
         this.Destreza = destreza;
         this.Fuerza = fuerza;
         this.Nivel = nivel;
@@ -30,7 +30,7 @@ public class Personaje{
     public string Nombre { get => nombre; set => nombre = value; }
     public string Apodo { get => apodo; set => apodo = value; }
     public DateTime Fechanacimiento { get => fechanacimiento; set => fechanacimiento = value; }
-    public int Valocidad { get => valocidad; set => valocidad = value; }
+    public int Velocidad { get => velocidad; set => velocidad = value; }
     public int Destreza { get => destreza; set => destreza = value; }
     public int Fuerza { get => fuerza; set => fuerza = value; }
     public int Nivel { get => nivel; set => nivel = value; }
