@@ -42,7 +42,21 @@ public class Personaje{
     public int Nivel { get => nivel; set => nivel = value; }
     public int Armadura { get => armadura; set => armadura = value; }
     public int Salud { get => salud; set => salud = value; }
-    public int Edad { get => salud; set => salud = value; }
+    public int Edad { get => edad; set => edad = value; }
+
+    public void MostraPersonaje(){
+        Console.WriteLine("Tipo: "+ Tipo);
+        Console.WriteLine("Nombre: "+ Nombre);
+        Console.WriteLine("Apodo: "+Apodo);
+        Console.WriteLine("Fecha de nacimiento: "+Fechanacimiento);
+        Console.WriteLine("Velocidad: "+Velocidad);
+        Console.WriteLine("Destreza: "+Destreza);
+        Console.WriteLine("Fuerza: "+Fuerza);
+        Console.WriteLine("Niverl: "+Nivel);
+        Console.WriteLine("Armadura: "+Armadura);
+        Console.WriteLine("Salud: "+Salud);
+        Console.WriteLine("Edad: "+Edad);
+    }
 }
 
 public class FabricaDePersonaje{
@@ -56,7 +70,7 @@ public class FabricaDePersonaje{
         personajeAleatorio.Velocidad = ObtenerIntRandom(1,10);
         personajeAleatorio.Destreza =ObtenerIntRandom(1,5);
         personajeAleatorio.Fuerza = ObtenerIntRandom(1,10);
-        personajeAleatorio.Nivel= 1;
+        personajeAleatorio.Nivel= ObtenerIntRandom(1,10);
         personajeAleatorio.Armadura = ObtenerIntRandom(1,10);
         personajeAleatorio.Salud = 100;
 
@@ -107,4 +121,19 @@ public class FabricaDePersonaje{
         }
     }
 }
+/*
+class PersonajeJson{
+        public void GuardarPersonajes(List<Personaje> nuevo, string archivo){
+            string Json = JsonSerializador;
+        }
+
+        public List<personaje> LeerPersonajes(string archivo){
+            List<personaje>listPer;
+            return listPer;
+        }
+
+        public bool ExistePersonaje(personaje nuevo){
+        return ;
+        }
+}*/
 
