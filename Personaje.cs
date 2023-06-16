@@ -11,8 +11,9 @@ public class Personaje{
     private int nivel;
     private int armadura;
     private int salud;
+    private int edad;
 
-    public Personaje(string tipo, string nombre, string apodo, DateTime fechanacimiento, int valocidad, int destreza, int fuerza, int nivel, int armadura, int salud)
+    public Personaje(string tipo, string nombre, string apodo, DateTime fechanacimiento, int valocidad, int destreza, int fuerza, int nivel, int armadura, int salud, int edad)
     {
         this.Tipo = tipo;
         this.Nombre = nombre;
@@ -24,6 +25,7 @@ public class Personaje{
         this.Nivel = nivel;
         this.Armadura = armadura;
         this.Salud = salud;
+        this.Edad = edad;
     }
 
     public Personaje(){
@@ -40,6 +42,7 @@ public class Personaje{
     public int Nivel { get => nivel; set => nivel = value; }
     public int Armadura { get => armadura; set => armadura = value; }
     public int Salud { get => salud; set => salud = value; }
+    public int Edad { get => salud; set => salud = value; }
 }
 
 public class FabricaDePersonaje{
@@ -48,7 +51,8 @@ public class FabricaDePersonaje{
         personajeAleatorio.Nombre = ObtenerNombre();
         personajeAleatorio.Tipo = ObtenerTipo();
         personajeAleatorio.Apodo = ObtenerApodo();
-        personajeAleatorio.Fechanacimiento = DateTime.Now;
+        personajeAleatorio.Fechanacimiento = fechaAleatoria();
+        personajeAleatorio.Edad = ObtenerEdad(personajeAleatorio.Fechanacimiento);
         personajeAleatorio.Velocidad = ObtenerIntRandom(1,10);
         personajeAleatorio.Destreza =ObtenerIntRandom(1,5);
         personajeAleatorio.Fuerza = ObtenerIntRandom(1,10);
@@ -65,31 +69,42 @@ public class FabricaDePersonaje{
     }
 
     public string ObtenerNombre(){
-        var nombres = new string[3];
-        nombres[0] = "Raul";
-        nombres[1] = "Mauro";
-        nombres[2] = "Messi";
+        var nombres = new string[3] {"Raul", "Mauro", "Messi" };
         var elegir = ObtenerIntRandom(0,3);
         return nombres[elegir];
     }
 
     public string ObtenerTipo(){
-        var tipo = new string[3];
-        tipo[0] = "Humano";
-        tipo[1] = "Orco";
-        tipo[2] = "Elfo";
-        
+        var tipo = new string[3] {"Humano", "Orco", "Elfo"};
         var elegir = ObtenerIntRandom(0,3);
         return tipo[elegir];
     }
 
     public string ObtenerApodo(){
-        var apodo = new string[3];
-        apodo[0] = "El tronco";
-        apodo[1] = "Pancho";
-        apodo[2] = "Dios";
-
+        var apodo = new string[3] { "El tronco","Pancho", "Dios"};
         var elegir = ObtenerIntRandom(0,3);
         return apodo[elegir];
     }
+
+    public DateTime fechaAleatoria(){
+        int dia , mes, anio;
+        dia = ObtenerIntRandom(1,29);
+        mes = ObtenerIntRandom(1,13);
+        anio = ObtenerIntRandom(1725, 2023);
+        DateTime fecha = new DateTime(anio, mes, dia);
+        return fecha;
+    }
+
+    public int ObtenerEdad(DateTime fecha){
+        if(fecha < DateTime.Today){
+            int edad = DateTime.Today.Year - fecha.Year;
+            if(fecha.Month > DateTime.Today.Month ){
+                --edad;
+            }
+            return edad;
+        }else{
+            return -1;
+        }
+    }
 }
+
