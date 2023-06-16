@@ -1,9 +1,9 @@
 namespace PersonajeCaracteristicas;
 
 public class Personaje{
-    private string tipo;
-    private string nombre;
-    private string apodo;
+    private string? tipo;
+    private string? nombre;
+    private string? apodo;
     private DateTime fechanacimiento;
     private int velocidad;
     private int destreza;
@@ -32,9 +32,9 @@ public class Personaje{
 
     }
 
-    public string Tipo { get => tipo; set => tipo = value; }
-    public string Nombre { get => nombre; set => nombre = value; }
-    public string Apodo { get => apodo; set => apodo = value; }
+    public string? Tipo { get => tipo; set => tipo = value; }
+    public string? Nombre { get => nombre; set => nombre = value; }
+    public string? Apodo { get => apodo; set => apodo = value; }
     public DateTime Fechanacimiento { get => fechanacimiento; set => fechanacimiento = value; }
     public int Velocidad { get => velocidad; set => velocidad = value; }
     public int Destreza { get => destreza; set => destreza = value; }
