@@ -3,12 +3,24 @@ using PersonajeCaracteristicas;
 
 Console.WriteLine("Hello, World!");
 
-var fabrica = new FabricaDePersonaje();
 var personajes = new List<Personaje>();
-for(int i=0; i< 10;i++){
-    personajes.Add(fabrica.CrearPersonaje());
+for(int i=0; i< 4;i++){
+    personajes.Add(FabricaDePersonaje.CrearPersonaje());
+}
+string nombreArchivo = @"\Personajes.json";
+PersonajeJson.GuardarPersonajes(personajes, nombreArchivo);
+
+if(PersonajeJson.Existe(nombreArchivo)){
+    Console.WriteLine("Existe");
+    List<Personaje> nuevaLisa = new List<Personaje>();
+    nuevaLisa = PersonajeJson.LeerPersonajes(nombreArchivo);
+    foreach(var item in nuevaLisa){
+        item.MostraPersonaje();
+    }
+}else{
+    Console.WriteLine("No existe");
 }
 
-foreach(var item in personajes){
-    item.MostraPersonaje();
-}
+
+
+

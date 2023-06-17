@@ -1,3 +1,4 @@
+using System.Text.Json;
 namespace PersonajeCaracteristicas;
 
 public class Personaje{
@@ -59,8 +60,8 @@ public class Personaje{
     }
 }
 
-public class FabricaDePersonaje{
-    public Personaje CrearPersonaje(){
+public static class FabricaDePersonaje{
+    public static Personaje CrearPersonaje(){
         var personajeAleatorio = new Personaje();
         personajeAleatorio.Nombre = ObtenerNombre();
         personajeAleatorio.Tipo = ObtenerTipo();
@@ -77,39 +78,40 @@ public class FabricaDePersonaje{
         return personajeAleatorio;
     }
 
-    public int ObtenerIntRandom(int ini,int  fin){
+    public static int ObtenerIntRandom(int ini,int  fin){
         var random = new Random();
         return random.Next(ini,fin);
     }
 
-    public string ObtenerNombre(){
+    public static string ObtenerNombre(){
         var nombres = new string[3] {"Raul", "Mauro", "Messi" };
         var elegir = ObtenerIntRandom(0,3);
         return nombres[elegir];
     }
 
-    public string ObtenerTipo(){
+    public static string ObtenerTipo(){
         var tipo = new string[3] {"Humano", "Orco", "Elfo"};
         var elegir = ObtenerIntRandom(0,3);
         return tipo[elegir];
     }
 
-    public string ObtenerApodo(){
+    public static string ObtenerApodo(){
         var apodo = new string[3] { "El tronco","Pancho", "Dios"};
         var elegir = ObtenerIntRandom(0,3);
         return apodo[elegir];
     }
 
-    public DateTime fechaAleatoria(){
+    public static DateTime fechaAleatoria(){
         int dia , mes, anio;
         dia = ObtenerIntRandom(1,29);
         mes = ObtenerIntRandom(1,13);
-        anio = ObtenerIntRandom(1725, 2023);
+        anio = ObtenerIntRandom(1724, 2023);
+        
         DateTime fecha = new DateTime(anio, mes, dia);
         return fecha;
     }
 
-    public int ObtenerEdad(DateTime fecha){
+    public static int ObtenerEdad(DateTime fecha){
         if(fecha < DateTime.Today){
             int edad = DateTime.Today.Year - fecha.Year;
             if(fecha.Month > DateTime.Today.Month ){
@@ -121,19 +123,53 @@ public class FabricaDePersonaje{
         }
     }
 }
-/*
-class PersonajeJson{
-        public void GuardarPersonajes(List<Personaje> nuevo, string archivo){
-            string Json = JsonSerializador;
+
+public static class PersonajeJson{
+              
+        public static void GuardarPersonajes(List<Personaje> nuevo, string archivo){
+            
+            string Json = JsonSerializer.Serialize<List<Personaje>>(nuevo);
+            string pathJSON = Directory.GetCurrentDirectory()+archivo;
+            using(StreamWriter sw = new StreamWriter(pathJSON, false)){
+                sw.Write(Json);
+                sw.Close();
+            }
         }
 
-        public List<personaje> LeerPersonajes(string archivo){
-            List<personaje>listPer;
+        public static List<Personaje> LeerPersonajes(string archivo){
+            List<Personaje> listPer = new List<Personaje>();
+            string pathJSON = Directory.GetCurrentDirectory()+archivo;
+            string Json = File.ReadAllText(pathJSON); //Leer archivo y guardar
+
+            listPer = JsonSerializer.Deserialize<List<Personaje>>(Json); // aclaracion de lista
+            
             return listPer;
         }
 
-        public bool ExistePersonaje(personaje nuevo){
-        return ;
+        public static bool Existe(string nuevo){
+            var lista = new List<Personaje>();
+            
+            // if(File.Exists(nuevo)){
+            //     lista = LeerPersonajes(nuevo);
+            //     if(lista != null){
+            //         return true;
+            //     }else{
+            //         return false;
+            //     }
+            // }else{
+            //     return false;
+            // }
+            string pathJSON = Directory.GetCurrentDirectory()+nuevo;
+            using( StreamReader sw = new StreamReader(pathJSON)){
+                 string archivoSalida;
+                if((archivoSalida= sw.ReadLine()) != null){
+                    return true;
+                }else{
+                    return false;
+                } 
+            }
+           
+
         }
-}*/
+}
 
