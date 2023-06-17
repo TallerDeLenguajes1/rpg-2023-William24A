@@ -60,13 +60,54 @@ public class Personaje{
     }
 }
 
+public static class Obtener{
+    public static string[] NombreH ={"Raul", "Mauro", "Messi"};
+    public static string[] NombreO = {"Groud","Traurus","Marcus"};
+    public static string[] NombreE = {"Elif", "Serif", "Eliot"};
+    public static string NombreA(string tipo){
+        string nombre= " ";
+        switch(tipo){
+            case "Humano":
+                nombre = NombreH[FabricaDePersonaje.ObtenerIntRandom(1,3)];
+                break;
+            case "Orco":
+                nombre = NombreO[FabricaDePersonaje.ObtenerIntRandom(1,3)];
+                break;
+            case "Elfo":
+                nombre = NombreE[FabricaDePersonaje.ObtenerIntRandom(1,3)];
+                break;
+        }
+        return nombre;
+    }
+    public static string[] Tipo = {"Humano", "Orco", "Elfo"};
+    
+    public static string[] ApodoH = {"Veloz", "Dios de guerra", "El que sobrevive"};
+    public static string[] ApodoO = {"De la orda", "El inmortal", "Destruccion"};
+    public static string[] ApodoE = {"El viento", "Flecha veloz", "Rayo"};
+    public static string ApodoA(string tipo){
+        string apodo= " ";
+        switch(tipo){
+            case "Humano":
+                apodo = ApodoH[FabricaDePersonaje.ObtenerIntRandom(0,3)];
+                break;
+            case "Orco":
+                apodo = ApodoO[FabricaDePersonaje.ObtenerIntRandom(0,3)];
+                break;
+            case "Elfo":
+                apodo = ApodoE[FabricaDePersonaje.ObtenerIntRandom(0,3)];
+                break;
+        }
+        return apodo;
+    }
+}
+
 public static class FabricaDePersonaje{
     public static Personaje CrearPersonaje(){
         var personajeAleatorio = new Personaje();
-        personajeAleatorio.Nombre = ObtenerNombre();
-        personajeAleatorio.Tipo = ObtenerTipo();
-        personajeAleatorio.Apodo = ObtenerApodo();
-        personajeAleatorio.Fechanacimiento = fechaAleatoria();
+        personajeAleatorio.Tipo = Obtener.Tipo[ObtenerIntRandom(0,3)];
+        personajeAleatorio.Nombre = Obtener.NombreA(personajeAleatorio.Tipo);
+        personajeAleatorio.Apodo = Obtener.ApodoA(personajeAleatorio.Tipo);
+        personajeAleatorio.Fechanacimiento = fechaAleatoria(personajeAleatorio.Tipo);
         personajeAleatorio.Edad = ObtenerEdad(personajeAleatorio.Fechanacimiento);
         personajeAleatorio.Velocidad = ObtenerIntRandom(1,10);
         personajeAleatorio.Destreza =ObtenerIntRandom(1,5);
@@ -83,29 +124,16 @@ public static class FabricaDePersonaje{
         return random.Next(ini,fin);
     }
 
-    public static string ObtenerNombre(){
-        var nombres = new string[3] {"Raul", "Mauro", "Messi" };
-        var elegir = ObtenerIntRandom(0,3);
-        return nombres[elegir];
-    }
-
-    public static string ObtenerTipo(){
-        var tipo = new string[3] {"Humano", "Orco", "Elfo"};
-        var elegir = ObtenerIntRandom(0,3);
-        return tipo[elegir];
-    }
-
-    public static string ObtenerApodo(){
-        var apodo = new string[3] { "El tronco","Pancho", "Dios"};
-        var elegir = ObtenerIntRandom(0,3);
-        return apodo[elegir];
-    }
-
-    public static DateTime fechaAleatoria(){
+    public static DateTime fechaAleatoria(string tipo){
         int dia , mes, anio;
+        if(tipo == "Humano"){
+             anio = ObtenerIntRandom(1933, 2023);
+        }else{
+             anio = ObtenerIntRandom(1724, 2023);
+        }
         dia = ObtenerIntRandom(1,29);
         mes = ObtenerIntRandom(1,13);
-        anio = ObtenerIntRandom(1724, 2023);
+       
         
         DateTime fecha = new DateTime(anio, mes, dia);
         return fecha;
