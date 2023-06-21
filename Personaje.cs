@@ -49,7 +49,7 @@ public class Personaje{
         Console.WriteLine("Tipo: "+ Tipo);
         Console.WriteLine("Nombre: "+ Nombre);
         Console.WriteLine("Apodo: "+Apodo);
-        Console.WriteLine("Fecha de nacimiento: "+Fechanacimiento);
+        Console.WriteLine("Fecha de nacimiento: "+Fechanacimiento.ToString("d"));
         Console.WriteLine("Velocidad: "+Velocidad);
         Console.WriteLine("Destreza: "+Destreza);
         Console.WriteLine("Fuerza: "+Fuerza);
@@ -176,26 +176,33 @@ public static class PersonajeJson{
 
         public static bool Existe(string nuevo){
             var lista = new List<Personaje>();
+            //string pathJSON = Directory.GetCurrentDirectory()+nuevo;
             
-            // if(File.Exists(nuevo)){
-            //     lista = LeerPersonajes(nuevo);
-            //     if(lista != null){
-            //         return true;
-            //     }else{
-            //         return false;
-            //     }
-            // }else{
-            //     return false;
-            // }
+            // if(File.Exists(pathJSON)){
+            //      lista = LeerPersonajes(nuevo);
+            //      if(lista != null){
+            //          return true;
+            //      }else{
+            //          return false;
+            //      }
+            //  }else{
+            //      return false;
+            //  }
+
             string pathJSON = Directory.GetCurrentDirectory()+nuevo;
-            using( StreamReader sw = new StreamReader(pathJSON)){
-                 string archivoSalida;
-                if((archivoSalida= sw.ReadLine()) != null){
-                    return true;
-                }else{
-                    return false;
-                } 
+            if(File.Exists(pathJSON)){
+                    using( StreamReader sw = new StreamReader(pathJSON)){
+                    string archivoSalida;
+                    if((archivoSalida= sw.ReadLine()) != null){
+                     return true;
+                    }else{
+                        return false;
+                    } 
+                }
+            }else{
+                return false;
             }
+            
            
 
         }
