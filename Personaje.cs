@@ -53,7 +53,7 @@ public class Personaje{
         Console.WriteLine("Velocidad: "+Velocidad);
         Console.WriteLine("Destreza: "+Destreza);
         Console.WriteLine("Fuerza: "+Fuerza);
-        Console.WriteLine("Niverl: "+Nivel);
+        Console.WriteLine("Nivel: "+Nivel);
         Console.WriteLine("Armadura: "+Armadura);
         Console.WriteLine("Salud: "+Salud);
         Console.WriteLine("Edad: "+Edad);

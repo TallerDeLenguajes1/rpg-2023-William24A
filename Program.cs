@@ -1,24 +1,21 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using PersonajeCaracteristicas;
 
-Console.WriteLine("Hello, World!");
-
-var personajes = new List<Personaje>();
-for(int i=0; i< 10;i++){
-    personajes.Add(FabricaDePersonaje.CrearPersonaje());
-}
 string nombreArchivo = @"\Personajes.json";
-PersonajeJson.GuardarPersonajes(personajes, nombreArchivo);
+List<Personaje> nuevaLisa = new List<Personaje>();
 
 if(PersonajeJson.Existe(nombreArchivo)){
-    Console.WriteLine("Existe");
-    List<Personaje> nuevaLisa = new List<Personaje>();
+    Console.WriteLine("Existe");    
     nuevaLisa = PersonajeJson.LeerPersonajes(nombreArchivo);
-    foreach(var item in nuevaLisa){
-        item.MostraPersonaje();
-    }
 }else{
-    Console.WriteLine("No existe");
+    for(int i=0; i< 10;i++){
+        nuevaLisa.Add(FabricaDePersonaje.CrearPersonaje());
+        PersonajeJson.GuardarPersonajes(nuevaLisa, nombreArchivo);
+    }
+}
+
+foreach(var item in nuevaLisa){
+    item.MostraPersonaje();
 }
 
 
