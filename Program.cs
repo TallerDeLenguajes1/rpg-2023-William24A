@@ -22,15 +22,16 @@ foreach(var item in nuevaLisa){
 // problema como dividir los personajes puede ser los 5 primeros para Jugador 1 y los otros 5 para jugador 2
 int k=0; // 5 primeros personajes para el primer jugador
 int j=5; // 5 personajes para el segundo a partir del 5to
-int t; // variable del turno
+int t,b=1; // variable del turno
 int ataque,efecitvidad,defenza,constante = 500, dañoProvocado;
-while(k < 4 && j < 10){
+while(k < 5 && j < 10){
     Console.WriteLine("Jugador 1:");
     nuevaLisa[k].MostraPersonaje();
     Console.WriteLine();
     Console.WriteLine("Jugador 2:");
     nuevaLisa[j].MostraPersonaje();
-    Console.WriteLine("Batalla \n");
+    Console.WriteLine();
+    Console.WriteLine("Batalla "+b+"\n");
     t=1;
     while(nuevaLisa[k].Salud > 0 && nuevaLisa[j].Salud > 0 ){
         Console.WriteLine("Turno "+t);
@@ -52,6 +53,7 @@ while(k < 4 && j < 10){
             Console.WriteLine("Salud del jugador 2: "+nuevaLisa[j].Salud);
         }
         t++;
+        Console.WriteLine();
     }
     if(nuevaLisa[k].Salud <= 0){
         k++;
@@ -62,9 +64,10 @@ while(k < 4 && j < 10){
         nuevaLisa[k].Salud +=10;
         nuevaLisa[k].Armadura +=5;
     }
+    b++;
 }
 Console.WriteLine();
-if(k > 4 || j < 10){
+if(k > 4 && j < 10){
     Console.WriteLine("Ganandor jugador 2");
 }else{
     Console.WriteLine("Ganador jugador 1");
