@@ -581,7 +581,7 @@ namespace ClassPokemonName;// Root myDeserializedClass = JsonSerializer.Deserial
         public int effort { get; set; }
 
         [JsonPropertyName("stat")]
-        public Stat stat { get; set; }
+        public Stat2 stat { get; set; }
     }
 
     public class Stat2
@@ -599,7 +599,7 @@ namespace ClassPokemonName;// Root myDeserializedClass = JsonSerializer.Deserial
         public int slot { get; set; }
 
         [JsonPropertyName("type")]
-        public Type type { get; set; }
+        public Type2 type { get; set; }
     }
 
     public class Type2

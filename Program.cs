@@ -90,14 +90,14 @@ void FuncionBatallaParejas(int k, int j, int max){
 
         }
         if(nuevaLisa[k].Salud <= 0){
-            Console.WriteLine("Personaje del Juegador 1 destruido.");
-            Console.WriteLine("Personaje del Jugador 2 recupera o suma 10 de salud y 5 de armadura.");
+            Console.WriteLine("Personaje "+ nuevaLisa[k].Nombre +" del Juegador 1 destruido.");
+            Console.WriteLine("Personaje "+ nuevaLisa[j].Nombre +" del Jugador 2 recupera o suma 10 de salud y 5 de armadura.");
             k++;
             nuevaLisa[j].Salud +=10;
             nuevaLisa[j].Armadura +=5;
         }else{
-            Console.WriteLine("Personaje del Juegador 2 destruido.");
-            Console.WriteLine("Personaje del Jugador 1 recupera o suma 10 de salud y 5 de armadura.");
+            Console.WriteLine("Personaje "+ nuevaLisa[j].Nombre +" del Juegador 2 destruido.");
+            Console.WriteLine("Personaje "+ nuevaLisa[k].Nombre +" del Jugador 1 recupera 10 de salud y suma 5 de armadura.");
             j++;
             nuevaLisa[k].Salud +=10;
             nuevaLisa[k].Armadura +=5;

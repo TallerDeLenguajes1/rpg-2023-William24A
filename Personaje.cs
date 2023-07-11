@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text.Json;
 using ClassPokemonName;
 
 namespace PersonajeCaracteristicas;
@@ -14,7 +13,7 @@ namespace PersonajeCaracteristicas;
 public class Personaje{
     private string? tipo;
     private string? nombre;
-    private string? apodo;
+    private int id;
     private DateTime fechanacimiento;
     private int velocidad;
     private int destreza;
@@ -24,11 +23,11 @@ public class Personaje{
     private int salud;
     private int edad;
 
-    public Personaje(string tipo, string nombre, string apodo, DateTime fechanacimiento, int valocidad, int destreza, int fuerza, int nivel, int armadura, int salud, int edad)
+    public Personaje(string tipo, string nombre, int ID, DateTime fechanacimiento, int valocidad, int destreza, int fuerza, int nivel, int armadura, int salud, int edad)
     {
         this.Tipo = tipo;
         this.Nombre = nombre;
-        this.Apodo = apodo;
+        this.id = ID;
         this.Fechanacimiento = fechanacimiento;
         this.Velocidad = velocidad;
         this.Destreza = destreza;
@@ -45,7 +44,7 @@ public class Personaje{
 
     public string? Tipo { get => tipo; set => tipo = value; }
     public string? Nombre { get => nombre; set => nombre = value; }
-    public string? Apodo { get => apodo; set => apodo = value; }
+    public int ID { get => id; set => id = value; }
     public DateTime Fechanacimiento { get => fechanacimiento; set => fechanacimiento = value; }
     public int Velocidad { get => velocidad; set => velocidad = value; }
     public int Destreza { get => destreza; set => destreza = value; }
@@ -58,7 +57,7 @@ public class Personaje{
     public void MostraPersonaje(){
         Console.WriteLine("\t\tTipo: "+ Tipo);
         Console.WriteLine("\t\tNombre: "+ Nombre);
-        Console.WriteLine("\t\tApodo: "+Apodo);
+        Console.WriteLine("\t\tID: "+ ID);
         Console.WriteLine("\t\tFecha de nacimiento: "+Fechanacimiento.ToString("d"));
         Console.WriteLine("\t\tVelocidad: "+Velocidad);
         Console.WriteLine("\t\tDestreza: "+Destreza);
@@ -70,56 +69,14 @@ public class Personaje{
     }
 }
 
-public static class Obtener{
-    public static string[] NombreH ={"Raul", "Mauro", "Messi"};
-    public static string[] NombreO = {"Groud","Traurus","Marcus"};
-    public static string[] NombreE = {"Elif", "Serif", "Eliot"};
-    public static string NombreA(string tipo){
-        string nombre= " ";
-        switch(tipo){
-            case "Humano":
-                nombre = NombreH[FabricaDePersonaje.ObtenerIntRandom(1,3)];
-                break;
-            case "Orco":
-                nombre = NombreO[FabricaDePersonaje.ObtenerIntRandom(1,3)];
-                break;
-            case "Elfo":
-                nombre = NombreE[FabricaDePersonaje.ObtenerIntRandom(1,3)];
-                break;
-        }
-        return nombre;
-    }
-    public static string[] Tipo = {"Humano", "Orco", "Elfo"};
-    
-    public static string[] ApodoH = {"Veloz", "Dios de guerra", "El que sobrevive"};
-    public static string[] ApodoO = {"De la orda", "El inmortal", "Destruccion"};
-    public static string[] ApodoE = {"El viento", "Flecha veloz", "Rayo"};
-    public static string ApodoA(string tipo){
-        string apodo= " ";
-        switch(tipo){
-            case "Humano":
-                apodo = ApodoH[FabricaDePersonaje.ObtenerIntRandom(0,3)];
-                break;
-            case "Orco":
-                apodo = ApodoO[FabricaDePersonaje.ObtenerIntRandom(0,3)];
-                break;
-            case "Elfo":
-                apodo = ApodoE[FabricaDePersonaje.ObtenerIntRandom(0,3)];
-                break;
-        }
-        return apodo;
-    }
-}
-
 public static class FabricaDePersonaje{
     public static Personaje CrearPersonaje(){
         var personajeAleatorio = new Personaje();
-        personajeAleatorio.Tipo = Obtener.Tipo[ObtenerIntRandom(0,3)];
-        //personajeAleatorio.Nombre = Obtener.NombreA(personajeAleatorio.Tipo);
         var Poke = GetPokemon(ObtenerIntRandom(1,20));
+        personajeAleatorio.Tipo = Poke.types[0].type.name;
         personajeAleatorio.Nombre = Poke.name;
         
-        personajeAleatorio.Apodo = Obtener.ApodoA(personajeAleatorio.Tipo);
+        personajeAleatorio.ID = Poke.id;
         personajeAleatorio.Fechanacimiento = fechaAleatoria(personajeAleatorio.Tipo);
         personajeAleatorio.Edad = ObtenerEdad(personajeAleatorio.Fechanacimiento);
         personajeAleatorio.Velocidad = ObtenerIntRandom(1,10);
@@ -139,11 +96,7 @@ public static class FabricaDePersonaje{
 
     public static DateTime fechaAleatoria(string tipo){
         int dia , mes, anio;
-        if(tipo == "Humano"){
-             anio = ObtenerIntRandom(1933, 2023);
-        }else{
-             anio = ObtenerIntRandom(1724, 2023);
-        }
+        anio = ObtenerIntRandom(1724, 2023);
         dia = ObtenerIntRandom(1,29);
         mes = ObtenerIntRandom(1,13);
        
