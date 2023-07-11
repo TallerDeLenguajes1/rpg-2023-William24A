@@ -1,4 +1,14 @@
 using System.Text.Json;
+
+
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Text.Json;
+using ClassPokemonName;
+
 namespace PersonajeCaracteristicas;
 
 public class Personaje{
@@ -46,17 +56,17 @@ public class Personaje{
     public int Edad { get => edad; set => edad = value; }
 
     public void MostraPersonaje(){
-        Console.WriteLine("Tipo: "+ Tipo);
-        Console.WriteLine("Nombre: "+ Nombre);
-        Console.WriteLine("Apodo: "+Apodo);
-        Console.WriteLine("Fecha de nacimiento: "+Fechanacimiento.ToString("d"));
-        Console.WriteLine("Velocidad: "+Velocidad);
-        Console.WriteLine("Destreza: "+Destreza);
-        Console.WriteLine("Fuerza: "+Fuerza);
-        Console.WriteLine("Nivel: "+Nivel);
-        Console.WriteLine("Armadura: "+Armadura);
-        Console.WriteLine("Salud: "+Salud);
-        Console.WriteLine("Edad: "+Edad);
+        Console.WriteLine("\t\tTipo: "+ Tipo);
+        Console.WriteLine("\t\tNombre: "+ Nombre);
+        Console.WriteLine("\t\tApodo: "+Apodo);
+        Console.WriteLine("\t\tFecha de nacimiento: "+Fechanacimiento.ToString("d"));
+        Console.WriteLine("\t\tVelocidad: "+Velocidad);
+        Console.WriteLine("\t\tDestreza: "+Destreza);
+        Console.WriteLine("\t\tFuerza: "+Fuerza);
+        Console.WriteLine("\t\tNivel: "+Nivel);
+        Console.WriteLine("\t\tArmadura: "+Armadura);
+        Console.WriteLine("\t\tSalud: "+Salud);
+        Console.WriteLine("\t\tEdad: "+Edad);
     }
 }
 
@@ -105,7 +115,10 @@ public static class FabricaDePersonaje{
     public static Personaje CrearPersonaje(){
         var personajeAleatorio = new Personaje();
         personajeAleatorio.Tipo = Obtener.Tipo[ObtenerIntRandom(0,3)];
-        personajeAleatorio.Nombre = Obtener.NombreA(personajeAleatorio.Tipo);
+        //personajeAleatorio.Nombre = Obtener.NombreA(personajeAleatorio.Tipo);
+        var Poke = GetPokemon(ObtenerIntRandom(1,20));
+        personajeAleatorio.Nombre = Poke.name;
+        
         personajeAleatorio.Apodo = Obtener.ApodoA(personajeAleatorio.Tipo);
         personajeAleatorio.Fechanacimiento = fechaAleatoria(personajeAleatorio.Tipo);
         personajeAleatorio.Edad = ObtenerEdad(personajeAleatorio.Fechanacimiento);
@@ -150,6 +163,37 @@ public static class FabricaDePersonaje{
             return -1;
         }
     }
+
+        public static Root GetPokemon(int numero)
+            {
+                var url = $"https://pokeapi.co/api/v2/pokemon/{numero}/";
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.ContentType = "application/json";
+                request.Accept = "application/json";
+                try
+                {
+                    using (WebResponse response = request.GetResponse())
+                    {
+                        using (Stream strReader = response.GetResponseStream())
+                        {
+                            if (strReader == null) return null;
+                            using (StreamReader objReader = new StreamReader(strReader))
+                            {
+                                string responseBody = objReader.ReadToEnd();
+                                Root Pokemon = JsonSerializer.Deserialize<Root>(responseBody);
+                                return Pokemon;
+                                
+                            }
+                        }
+                    }
+                }
+                catch (WebException ex)
+                {
+                    Console.WriteLine("Problemas de acceso a la API");
+                    return null;
+                }
+            }
 }
 
 public static class PersonajeJson{
@@ -206,5 +250,5 @@ public static class PersonajeJson{
            
 
         }
-}
 
+}
