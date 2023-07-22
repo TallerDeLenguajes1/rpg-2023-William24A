@@ -17,14 +17,30 @@ do
         case 2:
             FuncionBatallaParejas(0 , 3 , 6 , nuevaList);
             break;
+        case 3:
+            nuevaList = EliminarYcrear();
+            break;
         default:
             Console.Clear();
             Console.WriteLine("Muchas gracias por elegirnos.");
             break;
     }
 
-} while (menu != 3);
+} while (menu != 4);
 
+List<Personaje> EliminarYcrear(){
+    string nombreArchivo = @"\Personajes.json";
+
+    if (File.Exists(nombreArchivo))
+    {
+        File.Delete(nombreArchivo);
+    }
+    Console.WriteLine("Nuevos Personajes creados.");
+    Console.WriteLine("Presione enter para continuar");
+    Console.ReadKey();
+    Console.Clear();
+    return CrearOBuscarArchivo();
+}
 
 
 //Funcion que busca si es que existe el archivo JSON o crea personajes y guarda
@@ -131,6 +147,9 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
     }else{
         Console.WriteLine("Ganador jugador 1");
     }
+    Console.WriteLine("Presione enter para continuar.");
+    Console.ReadKey();
+    Console.Clear();
 }
 
 int Menu(){
@@ -139,16 +158,17 @@ int Menu(){
     Console.WriteLine("\tMENU");
     Console.WriteLine("1- Batalla 5 vs 5");
     Console.WriteLine("2- Batalla 3 vs 3");
-    Console.WriteLine("3-Salir");
+    Console.WriteLine("3- Cargar nuevos personajes aleatorios");
+    Console.WriteLine("4-Salir");
     Console.Write("Ingresar opcion: ");
     op = IngresarEntero();
-    if(op < 1 || op > 3){
+    if(op < 1 || op > 4){
         Console.WriteLine("\nOpcion incorrecta");
         Console.WriteLine("Presione enter para continuar");
         Console.ReadKey();
         Console.Clear();
     }
-    }while(op < 1 || op > 3);
+    }while(op < 1 || op > 4);
     Console.WriteLine("\nOpcion correcta, cargando...");
     return op;
 }
