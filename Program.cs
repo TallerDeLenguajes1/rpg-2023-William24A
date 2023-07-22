@@ -1,15 +1,33 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using PersonajeCaracteristicas;
 
-List<Personaje> nuevaLisa = CrearOBuscarArchivo();
-/*
-foreach(var item in nuevaLisa){
-    item.MostraPersonaje();
-}*/
-FuncionBatallaParejas(0,1,2);
+List<Personaje> nuevaList = CrearOBuscarArchivo();
+int menu;
+do
+{
+    menu = Menu();
+    Console.WriteLine("Presione enter para continuar.");
+    Console.ReadKey();
+    Console.Clear();
+    switch (menu)
+    {
+        case 1:
+            FuncionBatallaParejas(0 , 5 , 10 , nuevaList);
+            break;
+        case 2:
+            FuncionBatallaParejas(0 , 3 , 6 , nuevaList);
+            break;
+        default:
+            Console.Clear();
+            Console.WriteLine("Muchas gracias por elegirnos.");
+            break;
+    }
+
+} while (menu != 3);
 
 
 
+//Funcion que busca si es que existe el archivo JSON o crea personajes y guarda
 List<Personaje> CrearOBuscarArchivo(){
     string nombreArchivo = @"\Personajes.json";
     List<Personaje> nuevaLisa = new List<Personaje>();
@@ -26,62 +44,61 @@ List<Personaje> CrearOBuscarArchivo(){
     return nuevaLisa;
 }
 
-void FuncionBatallaParejas(int k, int j, int max){
+
+//funcion que genera las batallas entre los personajes
+void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
     int jini = j;
-    // problema como dividir los personajes puede ser los 5 primeros para Jugador 1 y los otros 5 para jugador 2
-    // int k=0; // 5 primeros personajes para el primer jugador
-    // int j=5; // 5 personajes para el segundo a partir del 5to
     int t,b=1; // variable del turno
     int ataque,efecitvidad,defenza,constante = 500, dañoProvocado;
-    while(k < j && j < max){
+    while(k < jini && j < max){
         Console.WriteLine("Jugador 1:");
-        nuevaLisa[k].MostraPersonaje();
+        nuevaLista[k].MostraPersonaje();
         Console.WriteLine();
-        Console.WriteLine("Jugador 2:");
-        nuevaLisa[j].MostraPersonaje();
+        Console.WriteLine("Enemigo:");
+        nuevaLista[j].MostraPersonaje();
         Console.WriteLine();
-        
+        Console.WriteLine("Presione enter para continuar.");   
         t=1;
         Console.ReadKey();
         Console.Clear();
         
-        while(nuevaLisa[k].Salud > 0 && nuevaLisa[j].Salud > 0 ){
+        while(nuevaLista[k].Salud > 0 && nuevaLista[j].Salud > 0 ){
             Console.WriteLine("Batalla "+b+"\n");    
             Console.WriteLine("Turno "+t);
             if(t%2 == 0){
-                ataque = nuevaLisa[j].Destreza * nuevaLisa[j].Fuerza * nuevaLisa[j].Nivel;
+                ataque = nuevaLista[j].Destreza * nuevaLista[j].Fuerza * nuevaLista[j].Nivel;
                 efecitvidad = FabricaDePersonaje.ObtenerIntRandom(1,100);
-                defenza = nuevaLisa[k].Armadura * nuevaLisa[k].Velocidad;
+                defenza = nuevaLista[k].Armadura * nuevaLista[k].Velocidad;
                 dañoProvocado = ((ataque*efecitvidad)-defenza)/constante;
-                nuevaLisa[k].Salud -= dañoProvocado;
+                nuevaLista[k].Salud -= dañoProvocado;
                 Console.WriteLine("Atacante:");
                 Console.WriteLine("\tJugador 2:");
-                nuevaLisa[j].MostraPersonaje();
+                nuevaLista[j].MostraPersonaje();
                 Console.WriteLine();
                 Console.WriteLine("Daño causado: "+dañoProvocado);
                 Console.WriteLine();
                 Console.WriteLine("Defensor:");
                 Console.WriteLine("\tJugador 1:");
-                nuevaLisa[k].MostraPersonaje();
+                nuevaLista[k].MostraPersonaje();
                 Console.WriteLine();
-                Console.WriteLine("Salud del jugador 1: "+nuevaLisa[k].Salud);
+                Console.WriteLine("Salud del jugador 1: "+nuevaLista[k].Salud);
             }else{
-                ataque = nuevaLisa[k].Destreza * nuevaLisa[k].Fuerza * nuevaLisa[k].Nivel;
+                ataque = nuevaLista[k].Destreza * nuevaLista[k].Fuerza * nuevaLista[k].Nivel;
                 efecitvidad = FabricaDePersonaje.ObtenerIntRandom(1,100);
-                defenza = nuevaLisa[j].Armadura * nuevaLisa[j].Velocidad;
+                defenza = nuevaLista[j].Armadura * nuevaLista[j].Velocidad;
                 dañoProvocado = ((ataque*efecitvidad)-defenza)/constante;
-                nuevaLisa[j].Salud -= dañoProvocado;
+                nuevaLista[j].Salud -= dañoProvocado;
                 Console.WriteLine("Atacante:");
                  Console.WriteLine("\tJugador 1:");
-                nuevaLisa[k].MostraPersonaje();
+                nuevaLista[k].MostraPersonaje();
                 Console.WriteLine();
                 Console.WriteLine("Daño causado: "+dañoProvocado);
                 Console.WriteLine();
                 Console.WriteLine("Defensor:");
                  Console.WriteLine("\tJugador 2:");
-                nuevaLisa[j].MostraPersonaje();
+                nuevaLista[j].MostraPersonaje();
                 Console.WriteLine();
-                Console.WriteLine("Salud del jugador 2: "+nuevaLisa[j].Salud);
+                Console.WriteLine("Salud del jugador 2: "+nuevaLista[j].Salud);
             }
             t++;
             Console.WriteLine("\nPresione enter para pasar de turno.");
@@ -89,18 +106,18 @@ void FuncionBatallaParejas(int k, int j, int max){
             Console.Clear();
 
         }
-        if(nuevaLisa[k].Salud <= 0){
-            Console.WriteLine("Personaje "+ nuevaLisa[k].Nombre +" del Juegador 1 destruido.");
-            Console.WriteLine("Personaje "+ nuevaLisa[j].Nombre +" del Jugador 2 recupera o suma 10 de salud y 5 de armadura.");
+        if(nuevaLista[k].Salud <= 0){
+            Console.WriteLine("Personaje "+ nuevaLista[k].Nombre +" del Juegador 1 destruido.");
+            Console.WriteLine("Personaje "+ nuevaLista[j].Nombre +" del Jugador 2 recupera o suma 10 de salud y 5 de armadura.");
             k++;
-            nuevaLisa[j].Salud +=10;
-            nuevaLisa[j].Armadura +=5;
+            nuevaLista[j].Salud +=10;
+            nuevaLista[j].Armadura +=5;
         }else{
-            Console.WriteLine("Personaje "+ nuevaLisa[j].Nombre +" del Juegador 2 destruido.");
-            Console.WriteLine("Personaje "+ nuevaLisa[k].Nombre +" del Jugador 1 recupera 10 de salud y suma 5 de armadura.");
+            Console.WriteLine("Personaje "+ nuevaLista[j].Nombre +" del Juegador 2 destruido.");
+            Console.WriteLine("Personaje "+ nuevaLista[k].Nombre +" del Jugador 1 recupera 10 de salud y suma 5 de armadura.");
             j++;
-            nuevaLisa[k].Salud +=10;
-            nuevaLisa[k].Armadura +=5;
+            nuevaLista[k].Salud +=10;
+            nuevaLista[k].Armadura +=5;
         }
         Console.WriteLine("Presione enter para continuar.");
         Console.ReadKey();
@@ -113,5 +130,34 @@ void FuncionBatallaParejas(int k, int j, int max){
         Console.WriteLine("Ganandor jugador 2");
     }else{
         Console.WriteLine("Ganador jugador 1");
+    }
+}
+
+int Menu(){
+    int op;
+    do{
+    Console.WriteLine("\tMENU");
+    Console.WriteLine("1- Batalla 5 vs 5");
+    Console.WriteLine("2- Batalla 3 vs 3");
+    Console.WriteLine("3-Salir");
+    Console.Write("Ingresar opcion: ");
+    op = IngresarEntero();
+    if(op < 1 || op > 3){
+        Console.WriteLine("\nOpcion incorrecta");
+        Console.WriteLine("Presione enter para continuar");
+        Console.ReadKey();
+        Console.Clear();
+    }
+    }while(op < 1 || op > 3);
+    Console.WriteLine("\nOpcion correcta, cargando...");
+    return op;
+}
+
+int IngresarEntero(){
+    int num;
+    if(int.TryParse(Console.ReadLine(), out num)){
+        return num;
+    }else{
+        return -1111;
     }
 }
