@@ -21,9 +21,9 @@ public class Personaje{
     private int nivel;
     private int armadura;
     private int salud;
-    private int edad;
+    private string? abilidad;
 
-    public Personaje(string tipo, string nombre, int ID, DateTime fechanacimiento, int valocidad, int destreza, int fuerza, int nivel, int armadura, int salud, int edad)
+    public Personaje(string tipo, string nombre, int ID, DateTime fechanacimiento, int valocidad, int destreza, int fuerza, int nivel, int armadura, int salud, string abilidad)
     {
         this.Tipo = tipo;
         this.Nombre = nombre;
@@ -35,7 +35,7 @@ public class Personaje{
         this.Nivel = nivel;
         this.Armadura = armadura;
         this.Salud = salud;
-        this.Edad = edad;
+        this.Abilidad = abilidad;
     }
 
     public Personaje(){
@@ -52,7 +52,7 @@ public class Personaje{
     public int Nivel { get => nivel; set => nivel = value; }
     public int Armadura { get => armadura; set => armadura = value; }
     public int Salud { get => salud; set => salud = value; }
-    public int Edad { get => edad; set => edad = value; }
+    public string? Abilidad{ get => abilidad; set => abilidad = value; }
 
     public void MostraPersonaje(){
         Console.WriteLine("\t\tTipo: "+ Tipo);
@@ -65,20 +65,19 @@ public class Personaje{
         Console.WriteLine("\t\tNivel: "+Nivel);
         Console.WriteLine("\t\tArmadura: "+Armadura);
         Console.WriteLine("\t\tSalud: "+Salud);
-        Console.WriteLine("\t\tEdad: "+Edad);
     }
 }
 
 public static class FabricaDePersonaje{
     public static Personaje CrearPersonaje(){
         var personajeAleatorio = new Personaje();
-        var Poke = GetPokemon(ObtenerIntRandom(1,20));
+        var Poke = GetPokemon(ObtenerIntRandom(1,200));
         personajeAleatorio.Tipo = Poke.types[0].type.name;
         personajeAleatorio.Nombre = Poke.name;
         
         personajeAleatorio.ID = Poke.id;
         personajeAleatorio.Fechanacimiento = fechaAleatoria(personajeAleatorio.Tipo);
-        personajeAleatorio.Edad = ObtenerEdad(personajeAleatorio.Fechanacimiento);
+        personajeAleatorio.Abilidad = Poke.abilities[ObtenerIntRandom(0, Poke.abilities.Count)].ability.name;
         personajeAleatorio.Velocidad = ObtenerIntRandom(1,10);
         personajeAleatorio.Destreza =ObtenerIntRandom(1,5);
         personajeAleatorio.Fuerza = ObtenerIntRandom(1,10);
@@ -105,17 +104,17 @@ public static class FabricaDePersonaje{
         return fecha;
     }
 
-    public static int ObtenerEdad(DateTime fecha){
-        if(fecha < DateTime.Today){
-            int edad = DateTime.Today.Year - fecha.Year;
-            if(fecha.Month > DateTime.Today.Month ){
-                --edad;
-            }
-            return edad;
-        }else{
-            return -1;
-        }
-    }
+    // public static int ObtenerEdad(DateTime fecha){
+    //     if(fecha < DateTime.Today){
+    //         int edad = DateTime.Today.Year - fecha.Year;
+    //         if(fecha.Month > DateTime.Today.Month ){
+    //             --edad;
+    //         }
+    //         return edad;
+    //     }else{
+    //         return -1;
+    //     }
+    // }
 
         public static Root GetPokemon(int numero)
             {

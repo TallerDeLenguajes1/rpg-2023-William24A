@@ -19,6 +19,10 @@ do
             break;
         case 3:
             nuevaList = EliminarYcrear();
+            Console.WriteLine("Nuevos Personajes creados.");
+            Console.WriteLine("Presione enter para continuar");
+            Console.ReadKey();
+            Console.Clear();
             break;
         default:
             Console.Clear();
@@ -28,17 +32,16 @@ do
 
 } while (menu != 4);
 
+
 List<Personaje> EliminarYcrear(){
-    string nombreArchivo = @"\Personajes.json";
+    string nombreArchivo = @"Personajes.json";
 
     if (File.Exists(nombreArchivo))
     {
         File.Delete(nombreArchivo);
+        Console.WriteLine("Archivo eliminado.");
     }
-    Console.WriteLine("Nuevos Personajes creados.");
-    Console.WriteLine("Presione enter para continuar");
-    Console.ReadKey();
-    Console.Clear();
+    
     return CrearOBuscarArchivo();
 }
 
@@ -88,7 +91,8 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
                 dañoProvocado = ((ataque*efecitvidad)-defenza)/constante;
                 nuevaLista[k].Salud -= dañoProvocado;
                 Console.WriteLine("Atacante:");
-                Console.WriteLine("\tJugador 2:");
+                Console.WriteLine("\tEnemigo:");
+                Mensaje(nuevaList[j]);
                 nuevaLista[j].MostraPersonaje();
                 Console.WriteLine();
                 Console.WriteLine("Daño causado: "+dañoProvocado);
@@ -105,7 +109,8 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
                 dañoProvocado = ((ataque*efecitvidad)-defenza)/constante;
                 nuevaLista[j].Salud -= dañoProvocado;
                 Console.WriteLine("Atacante:");
-                 Console.WriteLine("\tJugador 1:");
+                Console.WriteLine("\tJugador 1:");
+                Mensaje(nuevaList[k]);
                 nuevaLista[k].MostraPersonaje();
                 Console.WriteLine();
                 Console.WriteLine("Daño causado: "+dañoProvocado);
@@ -159,7 +164,7 @@ int Menu(){
     Console.WriteLine("1- Batalla 5 vs 5");
     Console.WriteLine("2- Batalla 3 vs 3");
     Console.WriteLine("3- Cargar nuevos personajes aleatorios");
-    Console.WriteLine("4-Salir");
+    Console.WriteLine("4- Salir");
     Console.Write("Ingresar opcion: ");
     op = IngresarEntero();
     if(op < 1 || op > 4){
@@ -180,4 +185,8 @@ int IngresarEntero(){
     }else{
         return -1111;
     }
+}
+
+void Mensaje(Personaje atacante){
+    Console.Write("\n\t\tAtaca "+ atacante.Nombre+ " utiliza "+ atacante.Abilidad+"\n");
 }

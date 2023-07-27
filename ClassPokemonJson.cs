@@ -5,7 +5,7 @@ namespace ClassPokemonName;// Root myDeserializedClass = JsonSerializer.Deserial
     public class Ability
     {
         [JsonPropertyName("ability")]
-        public Ability ability { get; set; }
+        public Ability2 ability { get; set; }
 
         [JsonPropertyName("is_hidden")]
         public bool is_hidden { get; set; }
@@ -332,7 +332,7 @@ namespace ClassPokemonName;// Root myDeserializedClass = JsonSerializer.Deserial
     public class Move
     {
         [JsonPropertyName("move")]
-        public Move move { get; set; }
+        public Move2 move { get; set; }
 
         [JsonPropertyName("version_group_details")]
         public List<VersionGroupDetail> version_group_details { get; set; }
