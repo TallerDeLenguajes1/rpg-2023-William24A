@@ -6,19 +6,22 @@ int menu;
 do
 {   
     Console.Clear();
-    menu = Menu();
+    menu = Menu(); //Mostrar Menu principal
     Console.WriteLine("Presione enter para continuar.");
     Console.ReadKey();
     Console.Clear();
     switch (menu)
     {
         case 1:
+            //Funcion que genera batalla 5 vs 5
             FuncionBatallaParejas(0 , 5 , 10 , nuevaList);
             break;
         case 2:
+            //Funcion que genera batalla 3 vs 3
             FuncionBatallaParejas(0 , 3 , 6 , nuevaList);
             break;
         case 3:
+            //Funcion que elimina archivo JSON y crea uno nuevo
             nuevaList = EliminarYcrear();
             Console.WriteLine("Nuevos Personajes creados.");
             Console.WriteLine("Presione enter para continuar");
@@ -35,11 +38,12 @@ do
 } while (menu != 4);
 
 
+// Funcion que elimina si existe un archivo y crea una lista nueva de personajes
 List<Personaje> EliminarYcrear(){
     string nombreArchivo = @"Personajes.json";
 
     if (File.Exists(nombreArchivo))
-    {
+    {   //Eliminar archivo 
         File.Delete(nombreArchivo);
         Console.WriteLine("Archivo eliminado.");
     }
@@ -118,10 +122,10 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
                 Console.WriteLine("Daño causado: "+dañoProvocado);
                 Console.WriteLine();
                 Console.WriteLine("Defensor:");
-                 Console.WriteLine("\tJugador 2:");
+                 Console.WriteLine("\tEnemigo:");
                 nuevaLista[j].MostraPersonaje();
                 Console.WriteLine();
-                Console.WriteLine("Salud del jugador 2: "+nuevaLista[j].Salud);
+                Console.WriteLine("Salud del Enemigo: "+nuevaLista[j].Salud);
             }
             t++;
             Console.WriteLine("\nPresione enter para pasar de turno.");
@@ -131,12 +135,12 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
         }
         if(nuevaLista[k].Salud <= 0){
             Console.WriteLine("Personaje "+ nuevaLista[k].Nombre +" del Juegador 1 destruido.");
-            Console.WriteLine("Personaje "+ nuevaLista[j].Nombre +" del Jugador 2 recupera o suma 10 de salud y 5 de armadura.");
+            Console.WriteLine("Personaje "+ nuevaLista[j].Nombre +" del Enemigo recupera o suma 10 de salud y 5 de armadura.");
             k++;
             nuevaLista[j].Salud +=10;
             nuevaLista[j].Armadura +=5;
         }else{
-            Console.WriteLine("Personaje "+ nuevaLista[j].Nombre +" del Juegador 2 destruido.");
+            Console.WriteLine("Personaje "+ nuevaLista[j].Nombre +" del Enemigo destruido.");
             Console.WriteLine("Personaje "+ nuevaLista[k].Nombre +" del Jugador 1 recupera 10 de salud y suma 5 de armadura.");
             j++;
             nuevaLista[k].Salud +=10;
@@ -150,7 +154,7 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
 
     Console.WriteLine();
     if(k >= jini && j <= max){
-        Console.WriteLine("Ganandor jugador 2");
+        Console.WriteLine("Perdiste");
     }else{
         Console.WriteLine("Ganador jugador 1");
     }
@@ -159,6 +163,7 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
     Console.Clear();
 }
 
+// Funcion que muestra el menu principal
 int Menu(){
     int op;
     do{
@@ -180,6 +185,7 @@ int Menu(){
     return op;
 }
 
+//Funcion que devuelve un entero
 int IngresarEntero(){
     int num;
     if(int.TryParse(Console.ReadLine(), out num)){
@@ -189,6 +195,7 @@ int IngresarEntero(){
     }
 }
 
+//Funcion que genera frase 
 void Mensaje(Personaje atacante){
     Console.Write("\n\t\tAtaca "+ atacante.Nombre+ " utiliza "+ atacante.Abilidad+"\n");
 }

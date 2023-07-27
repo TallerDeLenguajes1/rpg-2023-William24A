@@ -68,6 +68,7 @@ public class Personaje{
     }
 }
 
+//Crea el personaje 
 public static class FabricaDePersonaje{
     public static Personaje CrearPersonaje(){
         var personajeAleatorio = new Personaje();
@@ -148,6 +149,7 @@ public static class FabricaDePersonaje{
             }
 }
 
+//Manejo de archivo JSON
 public static class PersonajeJson{
               
         public static void GuardarPersonajes(List<Personaje> nuevo, string archivo){
@@ -199,8 +201,5 @@ public static class PersonajeJson{
                 return false;
             }
             
-           
-
         }
-
 }
