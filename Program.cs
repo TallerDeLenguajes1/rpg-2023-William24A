@@ -4,7 +4,8 @@ using PersonajeCaracteristicas;
 List<Personaje> nuevaList = CrearOBuscarArchivo();
 int menu;
 do
-{
+{   
+    Console.Clear();
     menu = Menu();
     Console.WriteLine("Presione enter para continuar.");
     Console.ReadKey();
@@ -27,6 +28,7 @@ do
         default:
             Console.Clear();
             Console.WriteLine("Muchas gracias por elegirnos.");
+            nuevaList.Clear();
             break;
     }
 
@@ -160,11 +162,11 @@ void FuncionBatallaParejas(int k, int j, int max, List<Personaje> nuevaLista){
 int Menu(){
     int op;
     do{
-    Console.WriteLine("\tMENU");
-    Console.WriteLine("1- Batalla 5 vs 5");
-    Console.WriteLine("2- Batalla 3 vs 3");
-    Console.WriteLine("3- Cargar nuevos personajes aleatorios");
-    Console.WriteLine("4- Salir");
+    Console.WriteLine("======= MENU =======\n");
+    Console.WriteLine("| 1- Batalla 5 vs 5");
+    Console.WriteLine("| 2- Batalla 3 vs 3");
+    Console.WriteLine("| 3- Cargar nuevos personajes aleatorios");
+    Console.WriteLine("| 4- Salir\n");
     Console.Write("Ingresar opcion: ");
     op = IngresarEntero();
     if(op < 1 || op > 4){
